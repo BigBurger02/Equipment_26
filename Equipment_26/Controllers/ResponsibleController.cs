@@ -19,7 +19,8 @@ public class ResponsibleController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<Responsible>>> GetResponsible()
     {
-        return Ok(await _db.Responsible.ToListAsync());
+        return Ok(await _db.Responsible
+            .ToListAsync());
     }
     
     [HttpGet("{id}")]

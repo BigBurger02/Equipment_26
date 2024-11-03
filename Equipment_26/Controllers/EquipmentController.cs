@@ -19,7 +19,31 @@ public class EquipmentController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<Equipment>>> GetEquipment()
     {
-        return Ok(await _db.Equipment.ToListAsync());
+        return Ok(await _db.Equipment.Include(x => x.Responsible).Include(x => x.Room)
+            .Select(x => new Equipment()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Status = x.Status,
+                Type = x.Type,
+                IsOperational = x.IsOperational,
+                PurchaseDate = x.PurchaseDate,
+                SerialNumber = x.SerialNumber,
+                WarrantyExpiry = x.WarrantyExpiry,
+                LastMaintenanceDate = x.LastMaintenanceDate,
+                RoomId = x.RoomId,
+                Room = new Room()
+                {
+                    Id = x.Room.Id,
+                    Capacity = x.Room.Capacity,
+                    Name = x.Room.Name,
+                    Type = x.Room.Type,
+                    SectionId = x.Room.SectionId,
+                },
+                ResponsibleId = x.ResponsibleId,
+                Responsible = x.Responsible,
+            })
+            .ToListAsync());
     }
     
     [HttpGet("{id}")]

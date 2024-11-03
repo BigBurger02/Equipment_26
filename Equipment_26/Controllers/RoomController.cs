@@ -19,7 +19,22 @@ public class RoomController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<Room>>> GetRooms()
     {
-        return Ok(await _db.Rooms.ToListAsync());
+        return Ok(await _db.Rooms.Include(x => x.Section)
+            .Select(y => new Room
+            {
+                Id = y.Id,
+                Capacity = y.Capacity,
+                Name = y.Name,
+                Type = y.Type,
+                SectionId = y.SectionId,
+                Section = new Section()
+                {
+                    Id = y.Section.Id,
+                    Name = y.Section.Name,
+                    FlourCount = y.Section.FlourCount,
+                }
+            })
+            .ToListAsync());
     }
     
     [HttpGet("{id}")]
