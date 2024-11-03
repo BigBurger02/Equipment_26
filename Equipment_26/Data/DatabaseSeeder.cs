@@ -34,7 +34,7 @@ public class DatabaseSeeder
 
     private List<Section> GenerateSections()
     {
-        var names = new[] { "Gerald", "Nick", "Alish", "Lucas", "John" };
+        var names = new[] { "Field", "Ball", "Citrus", "Pringles", "Abstraction" };
         var random = new Random();
         return Enumerable.Range(1, 20).Select(i => new Section
         {
@@ -69,8 +69,8 @@ public class DatabaseSeeder
 
     private List<Responsible> GenerateResponsibles()
     {
-        var names = new[] { "Alice", "Bob", "Eve", "Frank", "Grace" };
-        var positions = new[] { "Manager", "Supervisor", "Technician" };
+        var names = new[] { "Alice", "Bob", "Eve", "Frank", "Grace", "Gerald", "Nick", "Alish", "Lucas", "John" };
+        var positions = new[] { "Manager", "Supervisor", "Technician", "Teacher" };
         var random = new Random();
 
         return Enumerable.Range(1, 20).Select(i => new Responsible
@@ -85,7 +85,7 @@ public class DatabaseSeeder
 
     private List<Equipment> GenerateEquipment(List<Room> rooms, List<Responsible> responsibles)
     {
-        var equipmentNames = new[] { "Projector", "Computer", "Whiteboard", "Camera" };
+        var equipmentNames = new[] { "Projector", "Computer", "Whiteboard", "Camera", "Chair", "Table" };
         var types = new[] { "Electronics", "Furniture", "Stationery" };
         var statuses = new[] { "Operational", "Under Maintenance", "Out of Service" };
         var random = new Random();
