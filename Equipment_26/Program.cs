@@ -21,7 +21,12 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    scope.ServiceProvider.GetService<AppDbContext>()?.Database.Migrate();
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    
+    context.Database.Migrate();
+    
+    var seeder = new DatabaseSeeder(context);
+    seeder.Seed();
 }
 
 app.UseCors("CORS");
